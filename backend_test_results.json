@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-01-11T17:00:16.819449",
+  "total_tests": 14,
+  "passed_tests": 13,
+  "success_rate": 92.86,
+  "test_results": {
+    "seed": true,
+    "registration": true,
+    "login": true,
+    "admin_login": true,
+    "current_user": true,
+    "modules": true,
+    "progress": true,
+    "update_progress": false,
+    "market_matrix": true,
+    "financial_calc": true,
+    "chatbot": true,
+    "admin_stats": true,
+    "create_module": true
+  },
+  "failed_tests": [
+    {
+      "test": "Update Progress",
+      "expected": 200,
+      "actual": 520,
+      "response": "Internal Server Error"
+    }
+  ],
+  "base_url": "https://gcc-medical-launch.preview.emergentagent.com"
+}
