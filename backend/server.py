@@ -522,7 +522,20 @@ async def update_progress(
         update_doc["progress_id"] = progress_id
         await db.progress.insert_one(update_doc)
     
-    return {"progress_id": progress_id, **update_doc}
+    # Return clean response without potential ObjectId issues
+    response_data = {
+        "progress_id": progress_id,
+        "user_id": user["user_id"],
+        "module_id": progress_data.module_id,
+        "completed": progress_data.completed,
+        "video_progress": progress_data.video_progress,
+        "updated_at": update_doc["updated_at"]
+    }
+    
+    if "completed_at" in update_doc:
+        response_data["completed_at"] = update_doc["completed_at"]
+    
+    return response_data
 
 # ============== INTERACTIVE TOOLS ==============
 
