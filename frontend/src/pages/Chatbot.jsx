@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { Send, Bot, User, Sparkles, Trash2 } from 'lucide-react';
+import { Send, Bot, User, Sparkles, Trash2, Volume2 } from 'lucide-react';
 import { DashboardLayout } from '../components/Sidebar';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Textarea } from '../components/ui/textarea';
 import { ScrollArea } from '../components/ui/scroll-area';
+import { AudioButton } from '../components/AudioPlayer';
 import { fetchApi } from '../lib/utils';
 import { toast } from 'sonner';
 
