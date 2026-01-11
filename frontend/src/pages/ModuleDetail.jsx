@@ -9,12 +9,14 @@ import {
   Play,
   ChevronLeft,
   ChevronRight,
-  BookOpen
+  BookOpen,
+  Volume2
 } from 'lucide-react';
 import { DashboardLayout } from '../components/Sidebar';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Progress } from '../components/ui/progress';
+import { AudioPlayer } from '../components/AudioPlayer';
 import { fetchApi } from '../lib/utils';
 import { toast } from 'sonner';
 
