@@ -17,12 +17,14 @@ Build a comprehensive 12-week course platform for "Launch Your Medical Practice 
 - Admin content management panel
 - Both JWT and Google OAuth authentication
 - Healthcare-focused professional design
+- ElevenLabs text-to-speech audio narration
 
 ## Architecture
 - **Frontend**: React + Tailwind CSS + Shadcn UI
 - **Backend**: FastAPI (Python)
 - **Database**: MongoDB
 - **AI**: Claude Sonnet 4.5 via emergentintegrations
+- **TTS**: ElevenLabs API
 - **Auth**: JWT + Emergent Google OAuth
 
 ## What's Been Implemented (January 2025)
@@ -35,7 +37,7 @@ Build a comprehensive 12-week course platform for "Launch Your Medical Practice 
 - [x] Module detail page with video player and content
 - [x] Interactive Tools page
 - [x] GCC Market Selection Matrix (15+ criteria scoring calculator)
-- [x] Financial Calculator (startup costs, expenses, 3-year projections)
+- [x] Financial Calculator (startup costs, expenses, 3-year projections with charts)
 - [x] AI Chatbot powered by Claude Sonnet 4.5
 - [x] Admin dashboard with platform stats
 - [x] Admin content management (CRUD for modules)
@@ -43,12 +45,23 @@ Build a comprehensive 12-week course platform for "Launch Your Medical Practice 
 - [x] Week 1 content fully pre-loaded
 - [x] Weeks 2-12 structure with placeholders
 
+### Phase 2 - ElevenLabs TTS Integration ✅ (January 2025)
+- [x] ElevenLabs API integration
+- [x] Multiple voice options (Dr. Marcus, Dr. Amara, Coach Jordan)
+- [x] Full audio player with controls (play, pause, skip, speed, volume)
+- [x] Audio player on module content pages
+- [x] Audio button on chatbot responses
+- [x] User voice preference storage
+- [x] Audio caching for performance
+
 ### Database Collections
 - `users` - User accounts with roles (student, instructor, admin)
 - `user_sessions` - OAuth session management
 - `modules` - Course modules with content and resources
 - `progress` - Student progress tracking
 - `chat_messages` - AI chat history
+- `tts_cache` - Cached audio files
+- `user_preferences` - Voice and playback preferences
 
 ## Prioritized Backlog
 
