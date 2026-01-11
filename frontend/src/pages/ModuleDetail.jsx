@@ -178,6 +178,15 @@ export default function ModuleDetail({ user }) {
               </Card>
             )}
 
+            {/* Audio Player */}
+            {module.content && (
+              <AudioPlayer 
+                text={module.content}
+                title={`Listen to: ${module.title}`}
+                className="mb-6"
+              />
+            )}
+
             {/* Module Content */}
             {module.content && (
               <Card data-testid="module-content">
