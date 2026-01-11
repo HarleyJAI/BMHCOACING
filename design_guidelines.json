@@ -1,0 +1,120 @@
+{
+  "typography": {
+    "font_family": {
+      "headings": "Manrope, sans-serif",
+      "body": "Public Sans, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "scale": {
+      "h1": "text-5xl md:text-6xl font-bold tracking-tight",
+      "h2": "text-4xl md:text-5xl font-semibold tracking-tight",
+      "h3": "text-2xl md:text-3xl font-semibold",
+      "body_large": "text-lg md:text-xl leading-relaxed",
+      "body_base": "text-base leading-relaxed text-muted-foreground"
+    },
+    "imports": [
+      "@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Public+Sans:wght@300;400;500;600&display=swap');"
+    ]
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "hex": "#1E3A8A",
+        "hsl": "224 64% 33%",
+        "usage": "Primary brand color, main buttons, active states, headers"
+      },
+      "secondary": {
+        "hex": "#D97706",
+        "hsl": "32 95% 44%",
+        "usage": "Luxury accents, call-to-actions, premium badges, borders"
+      },
+      "accent": {
+        "hex": "#0D9488",
+        "hsl": "175 84% 32%",
+        "usage": "Success states, innovation highlights, data visualization"
+      },
+      "background": {
+        "hex": "#FDFCF8",
+        "hsl": "48 20% 98%",
+        "usage": "Main background - subtle warm sand tint, not sterile white"
+      },
+      "surface": {
+        "hex": "#FFFFFF",
+        "hsl": "0 0% 100%",
+        "usage": "Cards, modals, dropdowns"
+      }
+    },
+    "gradients": {
+      "hero": "bg-gradient-to-br from-[#1E3A8A] via-[#172554] to-[#0D9488]",
+      "gold_sheen": "bg-gradient-to-r from-transparent via-[#D97706]/20 to-transparent"
+    }
+  },
+  "visual_enhancers": {
+    "radius": "0.5rem",
+    "shadows": {
+      "card": "0 4px 20px -2px rgba(30, 58, 138, 0.08)",
+      "hover": "0 10px 30px -4px rgba(30, 58, 138, 0.12)"
+    },
+    "patterns": {
+      "mashrabiya": "Use subtle geometric SVG patterns in backgrounds with 3-5% opacity to evoke Middle Eastern architecture without clutter.",
+      "glass": "backdrop-blur-xl bg-white/80 border border-white/20 shadow-sm"
+    },
+    "borders": {
+      "subtle": "border-border/40",
+      "luxury": "border-[#D97706]/30"
+    }
+  },
+  "layout_strategies": {
+    "landing_page": {
+      "grid": "Tetris Grid (Mode A)",
+      "spacing": "Generous (py-24, gap-12)",
+      "container": "max-w-7xl mx-auto px-6"
+    },
+    "dashboard": {
+      "grid": "Control Room Grid (Mode B)",
+      "spacing": "Compact but breathable (gap-6)",
+      "sidebar": "Fixed left sidebar, w-64, glassmorphism effect"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-primary/25 transition-all duration-300 rounded-full px-8",
+      "secondary": "bg-white text-primary border-2 border-primary/10 hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 rounded-full px-8",
+      "luxury": "bg-secondary text-white hover:bg-secondary/90 shadow-md hover:shadow-secondary/20 rounded-full px-8"
+    },
+    "cards": {
+      "feature": "bg-white p-8 rounded-2xl border border-border/50 hover:border-secondary/30 transition-all duration-300 hover:-translate-y-1 shadow-card hover:shadow-hover group",
+      "dashboard": "bg-white p-6 rounded-xl border border-border/60 shadow-sm"
+    },
+    "inputs": {
+      "style": "h-12 bg-white border-border/80 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg transition-all"
+    }
+  },
+  "image_urls": {
+    "hero_bg": "https://images.pexels.com/photos/3214995/pexels-photo-3214995.jpeg",
+    "medical_team": "https://images.pexels.com/photos/5452228/pexels-photo-5452228.jpeg",
+    "doctor_consultation": "https://images.pexels.com/photos/8376277/pexels-photo-8376277.jpeg",
+    "dubai_skyline": "https://images.pexels.com/photos/3848412/pexels-photo-3848412.jpeg",
+    "placeholders": {
+      "logo": "https://placehold.co/200x60/1E3A8A/FFFFFF?text=GCC+Medical",
+      "user": "https://placehold.co/100x100/1E3A8A/FFFFFF?text=DR"
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. UPDATE THEME: Modify /app/frontend/src/index.css to use the HSL values provided in 'colors.palette'. Ensure the background is the warm sand tint (#FDFCF8) for the light theme.",
+    "2. FONTS: Add the Google Fonts import to index.css and update tailwind.config.js to include 'Manrope' and 'Public Sans'.",
+    "3. LANDING PAGE: Build a high-trust, luxury landing page. Use the 'Tetris Grid' for the hero section. Incorporate the 'Dubai Skyline' image with a gradient overlay (Deep Blue to Transparent). Use 'Gold' for key CTAs like 'Enroll Now'.",
+    "4. DASHBOARD: Create a clean, data-rich dashboard. Use the 'Control Room' grid. The sidebar should be deep blue (#1E3A8A) with white text. Cards should be white with subtle shadows.",
+    "5. INTERACTIVE TOOLS: The 'Market Selection Matrix' and 'Financial Calculator' are key value props. Build them as interactive React components with sliders and real-time updates. Style them like high-end fintech tools.",
+    "6. GEOMETRY: Add subtle geometric patterns (SVG) to section backgrounds (e.g., 'Why GCC', 'Curriculum') to reinforce the Middle Eastern context without being kitschy.",
+    "7. ACCESSIBILITY: Ensure all text on the Deep Blue background is pure white. Gold text should only be used on dark backgrounds or as large headings on light backgrounds."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Avoid generic 'AI slop' designs. No centered text blocks without purpose.",
+    "Use 2-3x more spacing than typical. Luxury = Space.",
+    "Every interaction needs a micro-animation (hover lift, glow, scale).",
+    "Use 'sonner' for toasts.",
+    "Use 'lucide-react' for icons.",
+    "Ensure all interactive elements have 'data-testid' attributes."
+  ]
+}
