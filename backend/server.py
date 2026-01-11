@@ -166,6 +166,23 @@ class ChatResponse(BaseModel):
     response: str
     session_id: str
 
+class TTSRequest(BaseModel):
+    text: str
+    voice_id: str = "dr_amara"  # Default voice
+    speed: float = 1.0
+
+class TTSResponse(BaseModel):
+    audio_url: str
+    text: str
+    voice_id: str
+    duration_estimate: float  # Estimated duration in seconds
+
+class VoiceOption(BaseModel):
+    voice_id: str
+    name: str
+    description: str
+    best_for: str
+
 # ============== HELPER FUNCTIONS ==============
 
 def hash_password(password: str) -> str:
