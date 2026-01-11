@@ -14,6 +14,10 @@ import jwt
 import bcrypt
 import httpx
 from emergentintegrations.llm.chat import LlmChat, UserMessage
+from elevenlabs import ElevenLabs
+from elevenlabs.core import ApiError
+import base64
+import hashlib
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -30,6 +34,34 @@ JWT_EXPIRATION_HOURS = 168  # 7 days
 
 # LLM Configuration
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY', '')
+
+# ElevenLabs Configuration
+ELEVENLABS_API_KEY = os.environ.get('ELEVENLABS_API_KEY', '')
+
+# Initialize ElevenLabs client
+eleven_client = ElevenLabs(api_key=ELEVENLABS_API_KEY) if ELEVENLABS_API_KEY else None
+
+# Voice configurations for the platform
+VOICE_OPTIONS = {
+    "dr_marcus": {
+        "voice_id": "pNInz6obpgDQGcFmaJgB",  # Adam - deep male
+        "name": "Dr. Marcus",
+        "description": "Authoritative male voice - deep, confident, military precision",
+        "best_for": "Regulatory content, compliance modules, strategic frameworks"
+    },
+    "dr_amara": {
+        "voice_id": "EXAVITQu4vr4xnSDxMaL",  # Bella - warm female
+        "name": "Dr. Amara", 
+        "description": "Warm professional female voice - clear, encouraging, approachable",
+        "best_for": "Clinical content, patient care modules, cultural competency"
+    },
+    "coach_jordan": {
+        "voice_id": "TX3LPaxmHKxFdv7VOQHJ",  # Liam - energetic
+        "name": "Coach Jordan",
+        "description": "Energetic motivational voice - dynamic, inspiring, action-oriented",
+        "best_for": "Marketing modules, sales strategies, motivational content"
+    }
+}
 
 # Create the main app
 app = FastAPI(title="GCC Medical Practice Launch API")
