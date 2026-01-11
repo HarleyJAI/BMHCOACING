@@ -76,6 +76,7 @@ Build a comprehensive 12-week course platform for "Launch Your Medical Practice 
 - [ ] Student networking features
 - [ ] Certificate generation upon completion
 - [ ] Resource library with search and filtering
+- [ ] Audio download for offline listening
 
 ### P2 - Medium Priority
 - [ ] Advanced financial modeling (3-year sensitivity analysis)
@@ -83,6 +84,7 @@ Build a comprehensive 12-week course platform for "Launch Your Medical Practice 
 - [ ] Stripe payment integration
 - [ ] Multi-language support (Arabic)
 - [ ] Mobile app (PWA)
+- [ ] Additional voice options (Dr. Khalil - Middle Eastern accent)
 
 ### P3 - Nice to Have
 - [ ] Live cohort scheduling
