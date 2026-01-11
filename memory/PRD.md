@@ -102,6 +102,7 @@ Build a comprehensive 12-week course platform for "Launch Your Medical Practice 
 
 ## Success Metrics
 - Course completion rate target: 60%+
+- Audio usage rate (% using TTS feature)
 - Tool usage tracking (Market Matrix, Financial Calculator)
 - Student satisfaction surveys
 - Number of practices launched by graduates
