@@ -161,6 +161,12 @@ What would you like to know?`,
                             );
                           })}
                         </div>
+                        {/* Audio button for assistant messages */}
+                        {message.role === 'assistant' && (
+                          <div className="mt-2 pt-2 border-t border-border/30 flex justify-end">
+                            <AudioButton text={message.content} />
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
