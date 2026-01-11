@@ -922,6 +922,163 @@ async def get_chat_history(
     
     return {"messages": messages}
 
+# ============== TEXT-TO-SPEECH (ElevenLabs) ==============
+
+@api_router.get("/tts/voices")
+async def get_available_voices(user: dict = Depends(get_current_user)):
+    """Get list of available voice options"""
+    voices = []
+    for key, voice in VOICE_OPTIONS.items():
+        voices.append({
+            "id": key,
+            "voice_id": voice["voice_id"],
+            "name": voice["name"],
+            "description": voice["description"],
+            "best_for": voice["best_for"]
+        })
+    return {"voices": voices}
+
+@api_router.post("/tts/generate", response_model=TTSResponse)
+async def generate_tts(
+    request: TTSRequest,
+    user: dict = Depends(get_current_user)
+):
+    """Generate text-to-speech audio using ElevenLabs"""
+    if not eleven_client:
+        raise HTTPException(status_code=503, detail="TTS service not configured")
+    
+    # Get voice ID from our mapping or use directly
+    voice_config = VOICE_OPTIONS.get(request.voice_id)
+    actual_voice_id = voice_config["voice_id"] if voice_config else request.voice_id
+    
+    # Create cache key based on text and voice
+    cache_key = hashlib.md5(f"{request.text}:{actual_voice_id}".encode()).hexdigest()
+    
+    # Check cache first
+    cached = await db.tts_cache.find_one({"cache_key": cache_key}, {"_id": 0})
+    if cached:
+        return TTSResponse(
+            audio_url=cached["audio_url"],
+            text=request.text,
+            voice_id=request.voice_id,
+            duration_estimate=cached.get("duration_estimate", len(request.text) / 15)
+        )
+    
+    try:
+        # Generate audio using ElevenLabs
+        audio_generator = eleven_client.text_to_speech.convert(
+            text=request.text,
+            voice_id=actual_voice_id,
+            model_id="eleven_multilingual_v2",
+        )
+        
+        # Collect audio data
+        audio_data = b""
+        for chunk in audio_generator:
+            audio_data += chunk
+        
+        # Convert to base64 for transfer
+        audio_b64 = base64.b64encode(audio_data).decode()
+        audio_url = f"data:audio/mpeg;base64,{audio_b64}"
+        
+        # Estimate duration (roughly 150 words per minute, 5 chars per word)
+        duration_estimate = len(request.text) / 750 * 60
+        
+        # Cache the result
+        await db.tts_cache.insert_one({
+            "cache_key": cache_key,
+            "audio_url": audio_url,
+            "text": request.text[:500],  # Store truncated text for reference
+            "voice_id": request.voice_id,
+            "duration_estimate": duration_estimate,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        })
+        
+        return TTSResponse(
+            audio_url=audio_url,
+            text=request.text,
+            voice_id=request.voice_id,
+            duration_estimate=duration_estimate
+        )
+        
+    except ApiError as e:
+        logger.error(f"ElevenLabs API error: {e}")
+        raise HTTPException(status_code=500, detail=f"TTS generation failed: {str(e)}")
+    except Exception as e:
+        logger.error(f"TTS error: {e}")
+        raise HTTPException(status_code=500, detail="TTS service temporarily unavailable")
+
+@api_router.post("/tts/chatbot")
+async def generate_chatbot_tts(
+    request: TTSRequest,
+    user: dict = Depends(get_current_user)
+):
+    """Generate TTS for chatbot responses - shorter text, optimized for quick response"""
+    if not eleven_client:
+        raise HTTPException(status_code=503, detail="TTS service not configured")
+    
+    # Limit text length for chatbot responses
+    text = request.text[:2000]  # Max 2000 chars for chatbot
+    
+    voice_config = VOICE_OPTIONS.get(request.voice_id, VOICE_OPTIONS["dr_amara"])
+    actual_voice_id = voice_config["voice_id"]
+    
+    try:
+        audio_generator = eleven_client.text_to_speech.convert(
+            text=text,
+            voice_id=actual_voice_id,
+            model_id="eleven_turbo_v2_5",  # Faster model for chatbot
+        )
+        
+        audio_data = b""
+        for chunk in audio_generator:
+            audio_data += chunk
+        
+        audio_b64 = base64.b64encode(audio_data).decode()
+        
+        return {
+            "audio_url": f"data:audio/mpeg;base64,{audio_b64}",
+            "duration_estimate": len(text) / 750 * 60
+        }
+        
+    except Exception as e:
+        logger.error(f"Chatbot TTS error: {e}")
+        raise HTTPException(status_code=500, detail="TTS generation failed")
+
+@api_router.get("/user/voice-preference")
+async def get_voice_preference(user: dict = Depends(get_current_user)):
+    """Get user's voice preference"""
+    pref = await db.user_preferences.find_one(
+        {"user_id": user["user_id"]},
+        {"_id": 0}
+    )
+    return {
+        "voice_id": pref.get("voice_id", "dr_amara") if pref else "dr_amara",
+        "playback_speed": pref.get("playback_speed", 1.0) if pref else 1.0,
+        "auto_play": pref.get("auto_play", False) if pref else False
+    }
+
+@api_router.post("/user/voice-preference")
+async def set_voice_preference(
+    voice_id: str,
+    playback_speed: float = 1.0,
+    auto_play: bool = False,
+    user: dict = Depends(get_current_user)
+):
+    """Set user's voice preference"""
+    await db.user_preferences.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": {
+            "user_id": user["user_id"],
+            "voice_id": voice_id,
+            "playback_speed": playback_speed,
+            "auto_play": auto_play,
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        }},
+        upsert=True
+    )
+    return {"message": "Voice preference saved"}
+
 # ============== ADMIN ENDPOINTS ==============
 
 @api_router.get("/admin/stats")
