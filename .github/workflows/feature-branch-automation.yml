@@ -1,0 +1,47 @@
+name: Feature Branch Security and Review
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - master
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit pytest
+
+      - name: Security vulnerability scan
+        run: |
+          bandit -r . -f json -o bandit-report.json || true
+
+      - name: Execute test suite
+        run: |
+          pytest -q | tee pytest-output.txt
+
+      - name: Generate markdown diff review
+        run: |
+          python scripts/generate_review_report.py
+
+      - name: Upload review artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: branch-review-artifacts
+          path: |
+            bandit-report.json
+            pytest-output.txt
+            review-report.md
