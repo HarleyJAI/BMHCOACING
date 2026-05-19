@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unified Care Ops Dashboard (Mockup)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Unified Care Ops Dashboard</h1>
+      <p class="subtitle">In-home clinical visits + incoming RPM stream</p>
+    </div>
+    <div class="timestamp" id="lastUpdated">Updated: --</div>
+  </header>
+
+  <main class="dashboard-grid">
+    <section class="kpi-row card">
+      <div class="kpi">
+        <h3>Visits Scheduled Today</h3>
+        <p class="kpi-value">42</p>
+      </div>
+      <div class="kpi">
+        <h3>Visits Completed</h3>
+        <p class="kpi-value">27</p>
+      </div>
+      <div class="kpi">
+        <h3>RPM Alerts (24h)</h3>
+        <p class="kpi-value alert">18</p>
+      </div>
+      <div class="kpi">
+        <h3>High-Risk Patients</h3>
+        <p class="kpi-value warn">9</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <h2>Visit Status by Hour</h2>
+        <span class="pill">Placeholder chart</span>
+      </div>
+      <div class="chart-placeholder" id="visitsChart"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <h2>RPM Data Volume by Device Type</h2>
+        <span class="pill">Placeholder chart</span>
+      </div>
+      <div class="chart-placeholder" id="rpmChart"></div>
+    </section>
+
+    <section class="card wide">
+      <div class="card-header">
+        <h2>Incoming RPM Alert Queue</h2>
+        <button class="btn">Export CSV</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Metric</th>
+            <th>Value</th>
+            <th>Severity</th>
+            <th>Received</th>
+            <th>Assigned RN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Maria J.</td><td>BP</td><td>172/98</td><td><span class="tag critical">Critical</span></td><td>08:42</td><td>R. Patel</td></tr>
+          <tr><td>Thomas K.</td><td>SpO₂</td><td>88%</td><td><span class="tag high">High</span></td><td>08:33</td><td>A. Nguyen</td></tr>
+          <tr><td>Dina L.</td><td>Glucose</td><td>54 mg/dL</td><td><span class="tag high">High</span></td><td>08:19</td><td>R. Patel</td></tr>
+          <tr><td>Harold S.</td><td>Weight</td><td>+4.2 lb/day</td><td><span class="tag medium">Medium</span></td><td>08:04</td><td>M. Brown</td></tr>
+          <tr><td>Aisha R.</td><td>HR</td><td>128 bpm</td><td><span class="tag medium">Medium</span></td><td>07:58</td><td>A. Nguyen</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card wide">
+      <div class="card-header">
+        <h2>Field Visit Schedule</h2>
+        <button class="btn">Open Route View</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Clinician</th>
+            <th>Next Patient</th>
+            <th>Window</th>
+            <th>Visit Type</th>
+            <th>Status</th>
+            <th>ETA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>J. Garcia, NP</td><td>Kevin D.</td><td>09:00-10:00</td><td>CHF follow-up</td><td><span class="tag ontrack">On Track</span></td><td>09:12</td></tr>
+          <tr><td>P. Singh, RN</td><td>Lorena M.</td><td>09:30-11:00</td><td>Wound care</td><td><span class="tag delayed">Delayed</span></td><td>10:08</td></tr>
+          <tr><td>M. Lee, PA</td><td>Gerald T.</td><td>10:00-11:30</td><td>Medication reconciliation</td><td><span class="tag ontrack">On Track</span></td><td>10:22</td></tr>
+          <tr><td>T. Walker, RN</td><td>Nina C.</td><td>11:00-12:30</td><td>Post-discharge</td><td><span class="tag at-risk">At Risk</span></td><td>11:35</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
